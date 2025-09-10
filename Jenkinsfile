@@ -31,4 +31,5 @@ pipeline {
             echo 'static website deployment failure'
         }
     }
+    }
 }
