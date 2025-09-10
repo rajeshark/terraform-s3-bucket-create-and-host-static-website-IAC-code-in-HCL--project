@@ -14,19 +14,15 @@ pipeline {
                 git branch: 'master' , url : 'https://github.com/rajeshark/terraform-s3-bucket-create-and-host-static-website-IAC-code-in-HCL--project.git'
             }
         }
-    }
-
-    stages {
-        stage ('terraform apply & init'){
+   
+         stage ('terraform apply & init'){
             steps{
                 sh 'terraform init'
                 sh 'terraform validate'
                 sh 'terraform apply-auto-approve'
             }
         }
-
-    } 
-    stages {
+    
         stage ('upload  files to s3 bucket automatically whenever we commit in github') {
             steps {
                 sh 'aws s3 sync ./ s3://$(terraform output -raw name)'
