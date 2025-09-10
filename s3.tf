@@ -52,6 +52,7 @@ resource "aws_s3_bucket_policy" "newpolicy" {
 }
         
     )
+depends_on = [aws_s3_bucket_public_access_block.public_access]
     
   
 }
