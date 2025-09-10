@@ -19,7 +19,7 @@
         stage ('upload  files to s3 bucket automatically whenever we commit in github') {
             steps {
                 withAWS(credentials: 'aws-cred-rajesh', region: 'eu-north-1'){
-                    sh 'aws s3 sync ./ s3://$(terraform output -raw name)'--exclude "*.tf" --exclude "Jenkinsfile"
+                    sh 'aws s3 sync ./ s3://$(terraform output -raw name) --exclude "*.tf" --exclude "Jenkinsfile"'
             }
         }
     }
