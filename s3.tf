@@ -64,22 +64,7 @@ resource "aws_s3_bucket_website_configuration" "static" {
     }
   
 }
-resource "aws_s3_object" "file1" {
-    bucket= aws_s3_bucket.demo_bucket.bucket
-    source="./index.html"
-    key="index.html"
-    content_type = "text/html"
 
-
-  
-}
-resource "aws_s3_object" "file2" {
-    bucket=aws_s3_bucket.demo_bucket.bucket
-    source="./styles.css"
-    key="styles.css"
-    content_type = "text/css"
-  
-}
 output "name" {
   value=aws_s3_bucket_website_configuration.static.website_endpoint
 }
