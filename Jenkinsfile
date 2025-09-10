@@ -1,13 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-        AWS_REGION = 'eu-north-1'
-        AWS_ACCESS_KEY_ID = 'AKIA3JIW32I5RWXADBTC'
-        AWS_SECRET_ACCESS_KEY = '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'
-
-
-    }
     stages {
         stage ('pull code form github') {
             steps{
@@ -17,15 +9,17 @@ pipeline {
    
          stage ('terraform apply & init'){
             steps{
+                withAWS(credentials: 'aws-cred-rajesh' ,region:'eu-north-1'){
                 sh 'terraform init'
                 sh 'terraform validate'
                 sh 'terraform apply -auto-approve'
+                }
             }
-        }
-    
+         }
         stage ('upload  files to s3 bucket automatically whenever we commit in github') {
             steps {
-                sh 'aws s3 sync ./ s3://$(terraform output -raw name)'
+                withAWS(credentials: 'aws-cred-rajesh' region: 'eu-north-1'){
+                sh 'aws s3 sync ./ s3://$(terraform output -raw name)'--exclude "*.tf" --exclude "Jenkinsfile"
             }
         }
     }
