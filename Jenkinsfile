@@ -23,6 +23,7 @@
             }
         }
     }
+    }
     post {
         success {
             echo 'static website deployment succesfull'
@@ -32,4 +33,3 @@
         }
     }
     }
-}
