@@ -33,7 +33,7 @@ pipeline {
     post {
         success {
             echo 'static website deployment successful'
-            echo '$(terraform output -raw name')
+            echo '$(terraform output -raw name)'
         }
         failure {
             echo 'static website deployment failure'
