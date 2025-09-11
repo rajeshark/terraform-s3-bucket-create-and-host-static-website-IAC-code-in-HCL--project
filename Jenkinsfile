@@ -23,8 +23,8 @@ pipeline {
                     // Extract just the bucket name (part before first dot)
                     sh '''
                         BUCKET_NAME=$(terraform output -raw name | cut -d'.' -f1)
-                        aws s3 sync ./ s3://$BUCKET_NAME --exclude "*.tf" --exclude "Jenkinsfile" --exclude ".hcl"
---exclude "git" --exclude "terraform" --exclude ".md"                    '''
+                        aws s3 sync ./ s3://$BUCKET_NAME --exclude "*.tf" --exclude "Jenkinsfile" --exclude ".terraform.lock.hcl"
+--exclude ".git/" --exclude ".terraform/" --exclude ".md"                    '''
                 }
             }
         }
