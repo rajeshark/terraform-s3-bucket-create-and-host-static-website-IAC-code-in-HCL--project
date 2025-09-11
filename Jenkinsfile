@@ -23,8 +23,8 @@ pipeline {
                     // Extract just the bucket name (part before first dot)
                     sh '''
                         BUCKET_NAME=$(terraform output -raw name | cut -d'.' -f1)
-                        aws s3 sync ./ s3://$BUCKET_NAME --exclude "*.tf" --exclude "Jenkinsfile"
-                    '''
+                        aws s3 sync ./ s3://$BUCKET_NAME --exclude "*.tf" --exclude "Jenkinsfile" --exclude ".lock.hcl"
+--exclude ".git" --exclude ".terraform" --exclude ".md"                    '''
                 }
             }
         }
@@ -33,6 +33,7 @@ pipeline {
     post {
         success {
             echo 'static website deployment successful'
+            echo '$(terraform output -raw name')
         }
         failure {
             echo 'static website deployment failure'
